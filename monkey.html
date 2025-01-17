@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RC Tank Controller</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #edebeb;
+            font-family: Monospace, sans-serif;
+            overflow: hidden;
+        }
+
+        .controller {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 800px;
+            height: 400px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border: none;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 20px 20px 60px #d0d0d0,
+                        -20px -20px 60px #ffffff;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            writing-mode: bt-lr;
+            transform: rotate(-90deg);
+            width: 250px;
+            height: 25px;
+            background: linear-gradient(90deg, #4a90e2, #357abd);
+            outline: none;
+            border-radius: 25px;
+            margin: 115px 0;
+            box-shadow: inset 2px 2px 5px #d0d0d0,
+                        inset -2px -2px 5px #ffffff;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #0054ff;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .button-container button {
+            width: 150px;
+            height: 80px;
+            margin: 12px 0;
+            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            color: #333;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: Monospace, monospace;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 10px #d0d0d0,
+                        -5px -5px 10px #ffffff;
+        }
+
+        .button-container button:hover {
+            background: linear-gradient(145deg, #4a90e2, #357abd);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .button-container button:active {
+            transform: scale(0.95);
+            box-shadow: inset 5px 5px 10px #d0d0d0,
+                        inset -5px -5px 10px #ffffff;
+        }
+
+        .slider-container label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+          .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .button-container button {
+            width: 150px;
+            height: 80px;
+            margin: 10px 0;
+            background-color: #c9c9c7;
+            color: Black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: Monospace, monospace;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="controller">
+        <!-- Left Slider -->
+        <div class="slider-container">
+            <label for="left-slider">LEFT</label>
+            <input id="left-slider" type="range" min="-255" max="255" value="0">
+        </div>
+        
+        <!-- Buttons -->
+        <div class="button-container">
+            <button id="button1">OPEN</button>
+            <button id="button2">CLOSE</button>
+            <button id="button3">SPECIAL</button>
+        </div>;'
+        
+
+        <!-- Right Slider -->
+        <div class="slider-container">
+            <label for="right-slider">RIGHT</label>
+            <input id="right-slider" type="range" min="-255" max="255" value="0">
+        </div>
+    </div>
+
+    <script>
+        const leftSlider = document.getElementById('left-slider');
+        const rightSlider = document.getElementById('right-slider');
+
+        leftSlider.addEventListener('input', (e) => {
+            console.log(`Left slider value: ${e.target.value}`);
+        });
+
+        rightSlider.addEventListener('input', (e) => {
+            console.log(`Right slider value: ${e.target.value}`);
+        });
+
+        // Reset sliders to zero with smooth animation
+        leftSlider.addEventListener('mouseup', () => {
+            leftSlider.style.transition = 'all 0.3s ease';
+            leftSlider.value = 0;
+            console.log('Left slider reset to 0');
+            setTimeout(() => {
+                leftSlider.style.transition = 'none';
+            }, 300);
+        });
+
+        leftSlider.addEventListener('touchend', () => {
+            leftSlider.style.transition = 'all 0.3s ease';
+            leftSlider.value = 0;
+            console.log('Left slider reset to 0');
+            setTimeout(() => {
+                leftSlider.style.transition = 'none';
+            }, 300);
+        });
+
+        rightSlider.addEventListener('mouseup', () => {
+            rightSlider.style.transition = 'all 0.3s ease';
+            rightSlider.value = 0;
+            console.log('Right slider reset to 0');
+            setTimeout(() => {
+                rightSlider.style.transition = 'none';
+            }, 300);
+        });
+
+        rightSlider.addEventListener('touchend', () => {
+            rightSlider.style.transition = 'all 0.3s ease';
+            rightSlider.value = 0;
+            console.log('Right slider reset to 0');
+            setTimeout(() => {
+                rightSlider.style.transition = 'none';
+            }, 300);
+        });        
+        // Button interactions
+        document.getElementById('button1').addEventListener('click', () => {
+            console.log('Button 1 clicked');
+        });
+
+        document.getElementById('button2').addEventListener('click', () => {
+            console.log('Button 2 clicked');
+        });
+
+        document.getElementById('button3').addEventListener('click', () => {
+            console.log('Button 3 clicked');
+        });
+    </script>
+</body>
+</html>
